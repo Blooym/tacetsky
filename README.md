@@ -1,6 +1,6 @@
 # Tacetsky
 
-Automatic posting of Wuthering Waves news to Bluesky.
+Automatic posting of Wuthering Waves news to Bluesky. Customized fork of [skywrite](https://github.com/Blooym/skywrite).
 
 ## Setup
 
