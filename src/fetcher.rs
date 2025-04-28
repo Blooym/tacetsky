@@ -89,11 +89,7 @@ impl<'a> WuwaNewsFetcher<'a> {
             .json::<WuwaRoot>()
             .await?;
 
-        content.article = content
-            .article
-            .into_iter()
-            .filter(|f| f.article_type != 0)
-            .collect();
+        content.article.retain(|f| f.article_type != 0);
         content.article.dedup_by_key(|f| f.article_id);
         content.article.sort_by_key(|f| f.article_id);
         content.article.reverse();
