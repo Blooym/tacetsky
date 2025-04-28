@@ -4,6 +4,34 @@ Automatic posting of Wuthering Waves news to Bluesky. Customized fork of [skywri
 
 ## Setup
 
+### Docker
+
+1. Copy the following to a local file named `docker-compose.yml` or add the
+   service to your existing stack and fill in the environment variables.
+   Information about configuration options can be found in the
+   [configuration](#configuration) section.
+
+```yml
+services:
+  tacetsky:
+    image: ghcr.io/blooym/tacetsky:main
+    restart: unless-stopped
+    environment:
+      - TACETSKY_APP_SERVICE=
+      - TACETSKY_APP_IDENTIFIER=
+      - TACETSKY_APP_PASSWORD=
+      - TACETSKY_NEWS_LOCALE=
+      - TACETSKY_RERUN_INTERVAL_SECONDS=
+      - TACETSKY_NEWS_BACKDATE_HOURS=72=
+      - TACETSKY_POST_LANGUAGES=
+      - TACETSKY_DISABLE_POST_COMMENTS=
+    volumes:
+      - tacetsky-data:/opt/tacetsky/data
+
+volumes:
+  tacetsky-data:
+```
+
 ### Manual
 
 1. Ensure you have [Rust](https://www.rust-lang.org/tools/install) installed and
