@@ -132,8 +132,6 @@ impl BlueskyHandler {
         };
 
         info!("Creating post record for: '{}'", &post.text);
-
-        println!("tag: {:#?}", post.tags);
         let record = self
             .agent
             .create_record(post::RecordData {
@@ -210,8 +208,6 @@ impl BlueskyHandler {
             debug!("Fetching and uploading image blob data for '{uri}'");
             let image_bytes = reqwest::get(data).await?.bytes().await?;
             let mut buf: Vec<u8> = vec![];
-            // The news site likes to make their covers 1920x1080 which is too big for Bluesky.
-            // Here they are downscaled and reformatted to be more efficient.
             ImageReader::new(Cursor::new(image_bytes))
                 .with_guessed_format()?
                 .decode()?
