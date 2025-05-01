@@ -103,11 +103,6 @@ impl ExecutableCommand for StartCommand {
         );
         loop {
             bsky_handler.sync_session().await?;
-            info!(
-                "Checking for unposted entries for news url {}",
-                news_fetcher.get_news_url()
-            );
-
             match news_fetcher.fetch_unposted().await {
                 Ok(posts) => {
                     for post in posts {
@@ -135,10 +130,7 @@ impl ExecutableCommand for StartCommand {
                     }
                 }
                 _ => {
-                    error!(
-                        "Failed to fetch news from {}: skipping for this iteration",
-                        news_fetcher.get_news_url()
-                    );
+                    error!("Failed to fetch news - skipping for this iteration");
                 }
             };
             info!(
